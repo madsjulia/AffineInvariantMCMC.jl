@@ -20,9 +20,9 @@ function testit()
 		return retval
 	end
 	x0 = rand(numdims, numwalkers) * 10 - 5
-	chain = Emcee.sample(llhood, numwalkers, x0, burnin, 1)
-	chain = Emcee.sample(llhood, numwalkers, chain[:, :, end], numsamples_perwalker, thinning)
-	flatchain = Emcee.flatten(chain)
+	chain, llhoodvals = Emcee.sample(llhood, numwalkers, x0, burnin, 1)
+	chain, llhoodvals = Emcee.sample(llhood, numwalkers, chain[:, :, end], numsamples_perwalker, thinning)
+	flatchain, flatllhoodvals = Emcee.flatten(chain, llhoodvals)
 	for i = 1:numdims
 		@test_approx_eq_eps mean(flatchain[i, :]) means[i] 0.1 * stds[i]
 		@test_approx_eq_eps std(flatchain[i, :]) stds[i] 0.1 * stds[i]

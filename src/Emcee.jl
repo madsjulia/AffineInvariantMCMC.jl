@@ -6,7 +6,7 @@ function sample(llhood, numwalkers, x0, numsamples_perwalker, thinning, a=2.)
 	x = copy(x0)
 	chain = Array(Float64, size(x0, 1), numwalkers, div(numsamples_perwalker, thinning))
 	lastllhoodvals = RobustPmap.rpmap(llhood, map(i->x[:, i], 1:size(x, 2)))
-	llhoodvals = Array(Float64, numwalkers, numsamples_perwalker)
+	llhoodvals = Array(Float64, numwalkers, div(numsamples_perwalker, thinning))
 	llhoodvals[:, 1] = lastllhoodvals
 	chain[:, :, 1] = x0
 	batch1 = 1:div(numwalkers, 2)
@@ -34,10 +34,10 @@ function sample(llhood, numwalkers, x0, numsamples_perwalker, thinning, a=2.)
 			end
 		end
 	end
-	return chain
+	return chain, llhoodvals
 end
 
-function flatten(chain)
+function flatten(chain, llhoodvals)
 	numdims, numwalkers, numsteps = size(chain)
 	newchain = Array(Float64, numdims, numwalkers * numsteps)
 	for j = 1:numsteps
@@ -45,7 +45,7 @@ function flatten(chain)
 			newchain[:, i + (j - 1) * numwalkers] = chain[:, i, j]
 		end
 	end
-	return newchain
+	return newchain, llhoodvals[1:end]
 end
 
 end
