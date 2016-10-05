@@ -1,4 +1,4 @@
-using Base.Test
+import Base.Test
 import Emcee
 
 srand(0)
@@ -24,8 +24,8 @@ function testit()
 	chain, llhoodvals = Emcee.sample(llhood, numwalkers, chain[:, :, end], numsamples_perwalker, thinning)
 	flatchain, flatllhoodvals = Emcee.flatten(chain, llhoodvals)
 	for i = 1:numdims
-		@test_approx_eq_eps mean(flatchain[i, :]) means[i] 0.1 * stds[i]
-		@test_approx_eq_eps std(flatchain[i, :]) stds[i] 0.1 * stds[i]
+		@Base.Test.test_approx_eq_eps mean(flatchain[i, :]) means[i] 0.1 * stds[i]
+		@Base.Test.test_approx_eq_eps std(flatchain[i, :]) stds[i] 0.1 * stds[i]
 	end
 end
 
