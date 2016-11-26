@@ -22,7 +22,7 @@ function testit()
 	x0 = rand(numdims, numwalkers) * 10 - 5
 	chain, llhoodvals = Emcee.sample(llhood, numwalkers, x0, burnin, 1)
 	chain, llhoodvals = Emcee.sample(llhood, numwalkers, chain[:, :, end], numsamples_perwalker, thinning)
-	flatchain, flatllhoodvals = Emcee.flatten(chain, llhoodvals)
+	flatchain, flatllhoodvals = Emcee.flattenmcmcarray(chain, llhoodvals)
 	for i = 1:numdims
 		@Base.Test.test_approx_eq_eps mean(flatchain[i, :]) means[i] 0.1 * stds[i]
 		@Base.Test.test_approx_eq_eps std(flatchain[i, :]) stds[i] 0.1 * stds[i]

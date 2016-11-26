@@ -3,7 +3,7 @@ module Emcee
 import RobustPmap
 
 """
-Bayesian sampling with emcee: Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler
+Bayesian sampling using Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler
 
 ```
 Emcee.sample(llhood, numwalkers=10, numsamples_perwalker=100, thinning=1)
@@ -21,6 +21,10 @@ Returns:
 
 - `mcmcchain` : final MCMC chain
 - `llhoodvals` : log likelihoods of the final samples in the chain
+
+Reference:
+
+Goodman, Jonathan, and Jonathan Weare. "Ensemble samplers with affine invariance." Communications in applied mathematics and computational science 5.1 (2010): 65-80.
 """
 function sample(llhood::Function, numwalkers::Int, x0::Array, numsamples_perwalker::Int, thinning::Int, a=2.)
 	@assert length(size(x0)) == 2
@@ -58,8 +62,8 @@ function sample(llhood::Function, numwalkers::Int, x0::Array, numsamples_perwalk
 	return chain, llhoodvals
 end
 
-"Flatten the MCMC arrays"
-function flatten(chain::Array, llhoodvals::Array)
+"Flatten MCMC arrays"
+function flattenmcmcarray(chain::Array, llhoodvals::Array)
 	numdims, numwalkers, numsteps = size(chain)
 	newchain = Array(Float64, numdims, numwalkers * numsteps)
 	for j = 1:numsteps
