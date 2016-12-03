@@ -29,7 +29,7 @@ function testit()
 	end
 end
 
-for _ in 1:10
+for _ in 1:5
 	testit()
 end
 :passed
