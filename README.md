@@ -1,7 +1,7 @@
 Emcee: Bayesian sampling using Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler
 =======================================
 
-[![Mads](http://pkg.julialang.org/badges/AffineInvariantMCMC_0.4.svg)](http://pkg.julialang.org/?pkg=Emcee&ver=0.4) [![Mads](http://pkg.julialang.org/badges/AffineInvariantMCMC_0.5.svg)](http://pkg.julialang.org/?pkg=Emcee&ver=0.5)
+[![AffineInvariantMCMC](http://pkg.julialang.org/badges/AffineInvariantMCMC_0.4.svg)](http://pkg.julialang.org/?pkg=AffineInvariantMCMC&ver=0.4) [![AffineInvariantMCMC](http://pkg.julialang.org/badges/AffineInvariantMCMC_0.5.svg)](http://pkg.julialang.org/?pkg=AffineInvariantMCMC&ver=0.5)
 
 [![Build Status](https://travis-ci.org/madsjulia/AffineInvariantMCMC.jl.svg?branch=master)](https://travis-ci.org/madsjulia/Mads.jl)
 
