@@ -1,13 +1,13 @@
 Emcee: Bayesian sampling using Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler
 =======================================
 
-[![Mads](http://pkg.julialang.org/badges/Emcee_0.4.svg)](http://pkg.julialang.org/?pkg=Emcee&ver=0.4) [![Mads](http://pkg.julialang.org/badges/Emcee_0.5.svg)](http://pkg.julialang.org/?pkg=Emcee&ver=0.5)
+[![Mads](http://pkg.julialang.org/badges/AffineInvariantMCMC_0.4.svg)](http://pkg.julialang.org/?pkg=Emcee&ver=0.4) [![Mads](http://pkg.julialang.org/badges/AffineInvariantMCMC_0.5.svg)](http://pkg.julialang.org/?pkg=Emcee&ver=0.5)
 
-[![Build Status](https://travis-ci.org/madsjulia/Emcee.jl.svg?branch=master)](https://travis-ci.org/madsjulia/Mads.jl)
+[![Build Status](https://travis-ci.org/madsjulia/AffineInvariantMCMC.jl.svg?branch=master)](https://travis-ci.org/madsjulia/Mads.jl)
 
-[![Coverage Status](https://coveralls.io/repos/madsjulia/Emcee.jl/badge.svg?branch=master)](https://coveralls.io/r/madsjulia/Mads.jl?branch=master)
+[![Coverage Status](https://coveralls.io/repos/madsjulia/AffineInvariantMCMC.jl/badge.svg?branch=master)](https://coveralls.io/r/madsjulia/Mads.jl?branch=master)
 
-Emcee is a module of MADS.
+AffineInvariantMCMC (aka Emcee) is a module of MADS.
 
 MADS is an open-source [Julia](http://julialang.org) code designed as an integrated high-performance computational framework performing a wide range of model-based analyses:
 
