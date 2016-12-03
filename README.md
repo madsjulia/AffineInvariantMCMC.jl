@@ -5,7 +5,7 @@ AffineInvariantMCMC (aka Emcee): Bayesian sampling using Goodman & Weare's Affin
 
 [![Build Status](https://travis-ci.org/madsjulia/AffineInvariantMCMC.jl.svg?branch=master)](https://travis-ci.org/madsjulia/Mads.jl)
 
-[![Coverage Status](https://coveralls.io/repos/madsjulia/AffineInvariantMCMC.jl/badge.svg?branch=master)](https://coveralls.io/r/madsjulia/Mads.jl?branch=master)
+[![Coverage Status](https://coveralls.io/repos/madsjulia/AffineInvariantMCMC.jl/badge.svg?branch=master)](https://coveralls.io/r/madsjulia/AffineInvariantMCMC.jl?branch=master)
 
 AffineInvariantMCMC (aka Emcee) is a module of MADS.
 
