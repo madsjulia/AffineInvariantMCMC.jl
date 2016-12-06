@@ -32,7 +32,7 @@ Installation
 After starting Julia, execute:
 
 ```
-Pkg.add("Emcee")
+Pkg.add("AffineInvariantMCMC")
 ```
 
 Installation of MADS behind a firewall
