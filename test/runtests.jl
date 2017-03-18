@@ -10,7 +10,7 @@ numsamples_perwalker = 1000
 burnin = 100
 
 function testit()
-	const stds = exp(5 * randn(numdims))
+	const stds = exp.(5 * randn(numdims))
 	const means = 1 + 5 * rand(numdims)
 	llhood = x->begin
 		retval = 0.
