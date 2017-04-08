@@ -54,7 +54,7 @@ Reference:
 
 Goodman, Jonathan, and Jonathan Weare. "Ensemble samplers with affine invariance." Communications in applied mathematics and computational science 5.1 (2010): 65-80.
 """
-function sample(llhood::Function, numwalkers::Int, x0::Array, numsamples_perwalker::Int, thinning::Int, a=2.)
+function sample(llhood::Function, numwalkers::Int, x0::Array, numsamples_perwalker::Integer, thinning::Integer, a::Number=2.)
 	@assert length(size(x0)) == 2
 	x = copy(x0)
 	chain = Array{Float64}(size(x0, 1), numwalkers, div(numsamples_perwalker, thinning))
