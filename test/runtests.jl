@@ -1,7 +1,24 @@
 import Base.Test
 import AffineInvariantMCMC
 
-srand(0)
+if !isdefined(Symbol("@stderrcapture"))
+	macro stderrcapture(block)
+		quote
+			if ccall(:jl_generating_output, Cint, ()) == 0
+				errororiginal = STDERR;
+				(errR, errW) = redirect_stderr();
+				errorreader = @async readstring(errR);
+				evalvalue = $(esc(block))
+				redirect_stderr(errororiginal);
+				close(errW);
+				close(errR);
+				return evalvalue
+			end
+		end
+	end
+end
+
+srand(2017)
 
 numdims = 5
 numwalkers = 100
@@ -9,8 +26,8 @@ thinning = 10
 numsamples_perwalker = 1000
 burnin = 100
 
-function testit()
-	const stds = exp.(5 * randn(numdims))
+@stderrcapture function testemcee()
+	const stds = exp(5 * randn(numdims))
 	const means = 1 + 5 * rand(numdims)
 	llhood = x->begin
 		retval = 0.
@@ -19,18 +36,21 @@ function testit()
 		end
 		return retval
 	end
+	
 	x0 = rand(numdims, numwalkers) * 10 - 5
 	chain, llhoodvals = AffineInvariantMCMC.sample(llhood, numwalkers, x0, burnin, 1)
 	chain, llhoodvals = AffineInvariantMCMC.sample(llhood, numwalkers, chain[:, :, end], numsamples_perwalker, thinning)
 	flatchain, flatllhoodvals = AffineInvariantMCMC.flattenmcmcarray(chain, llhoodvals)
-	for i = 1:numdims
-		@Base.Test.test_approx_eq_eps mean(flatchain[i, :]) means[i] 0.1 * stds[i]
-		@Base.Test.test_approx_eq_eps std(flatchain[i, :]) stds[i] 0.1 * stds[i]
+	return flatchain, means, stds
+end
+
+@Base.Test.testset "Emcee" begin
+	for _ in 1:10
+		flatchain, means, stds = testemcee()
+		for i = 1:numdims
+			@Base.Test.test isapprox(mean(flatchain[i, :]), means[i], atol=(0.5 * stds[i]))
+			@Base.Test.test isapprox(std(flatchain[i, :]), stds[i], atol=(5 * stds[i]))
+		end
 	end
 end
-
-for _ in 1:5
-	testit()
-end
-
 :passed
