@@ -1,3 +1,5 @@
+__precompile__()
+
 """
 MADS: Model Analysis & Decision Support in Julia (Mads.jl v1.0) 2016
 module AffineInvariantMCMC
@@ -28,6 +30,7 @@ PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE WOULD NOT INFRINGE PRIVATELY OWNED
 LA-CC-15-080; Copyright Number Assigned: C16008
 """
 module AffineInvariantMCMC
+
 import RobustPmap
 
 """
