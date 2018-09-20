@@ -2,6 +2,8 @@ AffineInvariantMCMC
 ===================
 
 [![AffineInvariantMCMC](http://pkg.julialang.org/badges/AffineInvariantMCMC_0.5.svg)](http://pkg.julialang.org/?pkg=AffineInvariantMCMC&ver=0.5)
+[![AffineInvariantMCMC](http://pkg.julialang.org/badges/AffineInvariantMCMC_0.6.svg)](http://pkg.julialang.org/?pkg=AffineInvariantMCMC&ver=0.6)
+[![AffineInvariantMCMC](http://pkg.julialang.org/badges/AffineInvariantMCMC_0.7.svg)](http://pkg.julialang.org/?pkg=AffineInvariantMCMC&ver=0.7)
 [![Build Status](https://travis-ci.org/madsjulia/AffineInvariantMCMC.jl.svg?branch=master)](https://travis-ci.org/madsjulia/AffineInvariantMCMC.jl)
 [![Coverage Status](https://coveralls.io/repos/madsjulia/AffineInvariantMCMC.jl/badge.svg?branch=master)](https://coveralls.io/r/madsjulia/AffineInvariantMCMC.jl?branch=master)
 
