@@ -13,7 +13,7 @@ Goodman & Weare's algorithm implementation in Python is called [Emcee](http://da
 
 Reference:
 
-[Goodman, Jonathan, and Jonathan Weare. "Ensemble samplers with affine invariance." Communications in applied mathematics and computational science 5.1 (2010): 65-80.](http://msp.org/camcos/2010/5-1/p04.xhtml)
+Goodman, Jonathan, and Jonathan Weare. "Ensemble samplers with affine invariance." Communications in applied mathematics and computational science 5.1 (2010): 65-80. [Link](http://msp.org/camcos/2010/5-1/p04.xhtml)
 
 Installation
 -----------
