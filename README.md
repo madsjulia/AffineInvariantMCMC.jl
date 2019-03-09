@@ -56,7 +56,6 @@ All the available MADS modules and functions are described at [madsjulia.github.
 
 AffineInvariantMCMC functions are documented at [https://madsjulia.github.io/Mads.jl/Modules/AffineInvariantMCMC](https://madsjulia.github.io/Mads.jl/Modules/AffineInvariantMCMC)
 
-
 Projects using AffineInvariantMCMC
 -----------------
 
