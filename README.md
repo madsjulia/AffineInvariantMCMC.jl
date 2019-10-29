@@ -52,13 +52,13 @@ flatchain, flatllhoodvals = AffineInvariantMCMC.flattenmcmcarray(chain, llhoodva
 Comparison
 ----------
 
-The figures below compare predicted posterior PDF's using Classical vs AffineInvariant MCMC for the same number of evaluations (in this case 1,000,000).
+The figures below compare predicted marginal and joint posterior PDF's (probability density functions) using Classical vs AffineInvariant MCMC for the same number of functional evaluations (in this case 1,000,000).
 
 The synthetic problem tested below is designed to have a very complex structure.
 The Classical MCMC clearly fails to characterize sufficiently well the  posterior PDF's.
 
-- ClassicalMCMC ![ClassicalMCMC](/examples/ClassicalMCMC_w1000000.png)
-- AffineInvariantMCMC_w1000000 ![AffineInvariantMCMC](/examples/AffineInvariantMCMC_w1000000.png)
+- Classical MCMC ![ClassicalMCMC](/examples/ClassicalMCMC_w1000000.png)
+- AffineInvariant MCMC ![AffineInvariantMCMC](/examples/AffineInvariantMCMC_w1000000.png)
 
 Documentation
 -------------
