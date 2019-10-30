@@ -62,7 +62,7 @@ Parallelization
 
 AffineInvariantMCMC can be executed efficiently in parallel using existing distributed network capabilities.
 
-For more information, check our Julia module [RobustPmap](https://github.com/madsjulia/RobustPmap.jl)
+For more information, check out our Julia module [RobustPmap](https://github.com/madsjulia/RobustPmap.jl).
 
 Restarts
 --------
@@ -75,7 +75,7 @@ Furthermore, AffineInvariantMCMC runs may require more time than the allowed all
 In all these cases, the AffineInvariantMCMC runs needs to be restarted.
 Our codes allow are very efficient restarts with very minimal overhead and without re-execution of completed functional (model) evaluations.
 
-For more information, check our Julia module [ReusableFunctions](https://github.com/madsjulia/ReusableFunctions.jl)
+For more information, check out our Julia module [ReusableFunctions](https://github.com/madsjulia/ReusableFunctions.jl).
 
 Documentation
 -------------
