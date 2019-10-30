@@ -57,6 +57,11 @@ The Classical MCMC clearly fails to characterize sufficiently well the  posterio
 - Classical MCMC ![ClassicalMCMC](/examples/ClassicalMCMC_w1000000.png)
 - Affine Invariant MCMC ![AffineInvariantMCMC](/examples/AffineInvariantMCMC_w1000000.png)
 
+The codes applied to perform these analyses are available here:
+
+- [Classical MCMC]h(ttps://github.com/madsjulia/Mads.jl/blob/master/examples/model_analysis/bayes_weight_analsis.jl)
+- [Affine Invariant MCMC](https://github.com/madsjulia/Mads.jl/blob/master/examples/model_analysis/emcee_weight_analsis.jl)
+
 Parallelization
 ---------------
 
