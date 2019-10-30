@@ -57,6 +57,26 @@ The Classical MCMC clearly fails to characterize sufficiently well the  posterio
 - Classical MCMC ![ClassicalMCMC](/examples/ClassicalMCMC_w1000000.png)
 - Affine Invariant MCMC ![AffineInvariantMCMC](/examples/AffineInvariantMCMC_w1000000.png)
 
+Parallelization
+---------------
+
+AffineInvariantMCMC can be executed efficiently in parallel using existing distributed network capabilities.
+
+For more information, check our Julia module [RobustPmap](https://github.com/madsjulia/RobustPmap.jl)
+
+Restarts
+--------
+
+AffineInvariantMCMC analyses can be performed utilizing extremely efficient restarts.
+
+Typically, the AffineInvariantMCMC runs require large number of functional (model) evaluations which may take substantial computational time.
+Occasionally, the AffineInvariantMCMC runs may crash due to external issues (e.g., network/computer/disk failures).
+Furthermore, AffineInvariantMCMC runs may require more time than the allowed allocation time on existing HPC cluster queues.
+In all these cases, the AffineInvariantMCMC runs needs to be restarted.
+Our codes allow are very efficient restarts with very minimal overhead and without re-execution of completed functional (model) evaluations.
+
+For more information, check our Julia module [ReusableFunctions](https://github.com/madsjulia/ReusableFunctions.jl)
+
 Documentation
 -------------
 
