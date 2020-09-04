@@ -37,7 +37,7 @@ import RobustPmap
 Bayesian sampling using Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler (aka Emcee)
 
 ```
-AffineInvariantMCMC.sample(llhood, numwalkers=10, numsamples_perwalker=100, thinning=1)
+AffineInvariantMCMC.sample(llhood, numwalkers=10, numsamples_perwalker=100, thinning=1, a=2)
 ```
 
 Arguments:
