@@ -5,7 +5,6 @@ AffineInvariantMCMC performs Bayesian sampling using Goodman & Weare's Affine In
 AffineInvariantMCMC is a module of [MADS](http://madsjulia.github.io/Mads.jl).
 Goodman & Weare's algorithm implementation in Python is called [Emcee](http://dan.iel.fm/emcee).
 
-[![Build Status](https://travis-ci.org/madsjulia/AffineInvariantMCMC.jl.svg?branch=master)](https://travis-ci.org/madsjulia/AffineInvariantMCMC.jl)
 [![Coverage Status](https://coveralls.io/repos/madsjulia/AffineInvariantMCMC.jl/badge.svg?branch=master)](https://coveralls.io/r/madsjulia/AffineInvariantMCMC.jl?branch=master)
 
 Reference:
