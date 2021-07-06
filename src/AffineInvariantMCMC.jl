@@ -33,6 +33,13 @@ module AffineInvariantMCMC
 
 import RobustPmap
 
+const emceedir = splitdir(splitdir(pathof(AffineInvariantMCMC))[1])[1]
+
+"Test AffineInvariantMCMC"
+function test()
+	include(joinpath(emceedir, "test", "runtests.jl"))
+end
+
 """
 Bayesian sampling using Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler (aka Emcee)
 

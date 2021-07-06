@@ -1,12 +1,13 @@
 name = "AffineInvariantMCMC"
 uuid = "a0f608ac-68d0-5108-ad9a-0cdca73324f3"
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 RobustPmap = "27aeedcb-f738-516b-a0b8-3211cf1146e5"
 
 [compat]
 RobustPmap = "1"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 julia = "1.5"
 
 [extras]
