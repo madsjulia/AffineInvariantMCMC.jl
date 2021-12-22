@@ -32,6 +32,7 @@ LA-CC-15-080; Copyright Number Assigned: C16008
 module AffineInvariantMCMC
 
 import RobustPmap
+import Random
 
 const emceedir = splitdir(splitdir(pathof(AffineInvariantMCMC))[1])[1]
 
@@ -64,7 +65,7 @@ Reference:
 
 Goodman & Weare, "Ensemble samplers with affine invariance", Communications in Applied Mathematics and Computational Science, DOI: 10.2140/camcos.2010.5.65, 2010.
 """
-function sample(llhood::Function, numwalkers::Int, x0::Array, numsamples_perwalker::Integer, thinning::Integer, a::Number=2.)
+function sample(llhood::Function, numwalkers::Int, x0::Array, numsamples_perwalker::Integer, thinning::Integer, a::Number=2.; rng::Random.AbstractRNG=Random.GLOBAL_RNG)
 	@assert length(size(x0)) == 2
 	x = copy(x0)
 	chain = Array{Float64}(undef, size(x0, 1), numwalkers, div(numsamples_perwalker, thinning))
@@ -78,15 +79,15 @@ function sample(llhood::Function, numwalkers::Int, x0::Array, numsamples_perwalk
 	for i = 1:numsamples_perwalker
 		for ensembles in divisions
 			active, inactive = ensembles
-			zs = map(u->((a - 1) * u + 1)^2 / a, rand(length(active)))
-			proposals = map(i->zs[i] * x[:, active[i]] + (1 - zs[i]) * x[:, rand(inactive)], 1:length(active))
+			zs = map(u->((a - 1) * u + 1)^2 / a, rand(rng, length(active)))
+			proposals = map(i->zs[i] * x[:, active[i]] + (1 - zs[i]) * x[:, rand(rng, inactive)], 1:length(active))
 			newllhoods = RobustPmap.rpmap(llhood, proposals)
 			for (j, walkernum) in enumerate(active)
 				z = zs[j]
 				newllhood = newllhoods[j]
 				proposal = proposals[j]
 				logratio = (size(x, 1) - 1) * log(z) + newllhood - lastllhoodvals[walkernum]
-				if log(rand()) < logratio
+				if log(rand(rng)) < logratio
 					lastllhoodvals[walkernum] = newllhood
 					x[:, walkernum] = proposal
 				end
