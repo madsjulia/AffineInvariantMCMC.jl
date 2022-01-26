@@ -33,6 +33,7 @@ module AffineInvariantMCMC
 
 import RobustPmap
 import Random
+using ProgressMeter
 
 const emceedir = splitdir(splitdir(pathof(AffineInvariantMCMC))[1])[1]
 
@@ -76,7 +77,7 @@ function sample(llhood::Function, numwalkers::Int, x0::Array, numsamples_perwalk
 	batch1 = 1:div(numwalkers, 2)
 	batch2 = div(numwalkers, 2) + 1:numwalkers
 	divisions = [(batch1, batch2), (batch2, batch1)]
-	for i = 1:numsamples_perwalker
+	@showprogress for i = 1:numsamples_perwalker
 		for ensembles in divisions
 			active, inactive = ensembles
 			zs = map(u->((a - 1) * u + 1)^2 / a, rand(rng, length(active)))
