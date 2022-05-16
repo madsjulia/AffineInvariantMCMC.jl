@@ -65,8 +65,7 @@ Reference:
 
 Goodman & Weare, "Ensemble samplers with affine invariance", Communications in Applied Mathematics and Computational Science, DOI: 10.2140/camcos.2010.5.65, 2010.
 """
-function sample(llhood::Function, numwalkers::Int, x0::Array, numsamples_perwalker::Integer, thinning::Integer, a::Number=2.; rng::Random.AbstractRNG=Random.GLOBAL_RNG)
-	@assert length(size(x0)) == 2
+function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real}, numsamples_perwalker::Integer, thinning::Integer, a::Number=2.; rng::Random.AbstractRNG=Random.GLOBAL_RNG)
 	x = copy(x0)
 	chain = Array{Float64}(undef, size(x0, 1), numwalkers, div(numsamples_perwalker, thinning))
 	lastllhoodvals = RobustPmap.rpmap(llhood, map(i->x[:, i], 1:size(x, 2)))
