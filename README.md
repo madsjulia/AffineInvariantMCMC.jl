@@ -104,5 +104,6 @@ Publications, Presentations, Projects
 * [mads.gitlab.io](http://mads.gitlab.io)
 * [madsjulia.github.io](https://madsjulia.github.io)
 * [SmartTensors](https://SmartTensors.github.io)
+* [SmartTensors.com](https://SmartTensors.com)
 * [monty.gitlab.io](http://monty.gitlab.io)
 * [montyv.github.io](https://montyv.github.io)
