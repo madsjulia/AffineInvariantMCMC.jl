@@ -105,4 +105,4 @@ Publications, Presentations, Projects
 * [madsjulia.github.io](https://madsjulia.github.io)
 * [SmartTensors](https://SmartTensors.github.io)
 * [monty.gitlab.io](http://monty.gitlab.io)
-* [montyv.github.io]((https://montyv.github.io)
+* [montyv.github.io](https://montyv.github.io)
