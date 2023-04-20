@@ -91,13 +91,18 @@ AffineInvariantMCMC functions are documented at [https://madsjulia.github.io/Mad
 Projects using AffineInvariantMCMC
 -----------------
 
+Projects using AffineInvariantMCMC
+-----------------
+
 * [MADS](https://github.com/madsjulia)
-* [TensorDecompositions](https://github.com/TensorDecompositions)
+* [SmartTensors](https://github.com/SmartTensors)
+* [SmartML](https://github.com/SmartTensors/SmartML.jl)
 
 Publications, Presentations, Projects
 --------------------------
 
 * [mads.gitlab.io](http://mads.gitlab.io)
-* [TensorDecompositions](https://tensordecompositions.github.io)
+* [madsjulia.github.io](https://madsjulia.github.io)
+* [SmartTensors](https://SmartTensors.github.io)
 * [monty.gitlab.io](http://monty.gitlab.io)
-* [ees.lanl.gov/monty](https://www.lanl.gov/orgs/ees/staff/monty)
+* [montyv.github.io)]((https://montyv.github.io)
