@@ -34,7 +34,7 @@ const stds = exp(5 * randn(numdims))
 const means = 1 + 5 * rand(numdims)
 llhood = x->begin
 	retval = 0.
-	for i in 1:length(x)
+	for i = eachindex(x)
 		retval -= .5 * ((x[i] - means[i]) / stds[i]) ^ 2
 	end
 	return retval
