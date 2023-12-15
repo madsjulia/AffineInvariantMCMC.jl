@@ -73,11 +73,11 @@ Restarts
 
 AffineInvariantMCMC analyses can be performed utilizing extremely efficient restarts.
 
-Typically, the AffineInvariantMCMC runs require large number of functional (model) evaluations which may take substantial computational time.
+Typically, the AffineInvariantMCMC runs require a large number of functional (model) evaluations which may take substantial computational time.
 Occasionally, the AffineInvariantMCMC runs may crash due to external issues (e.g., network/computer/disk failures).
 Furthermore, AffineInvariantMCMC runs may require more time than the allowed allocation time on existing HPC cluster queues.
-In all these cases, the AffineInvariantMCMC runs needs to be restarted.
-Our codes allow are very efficient restarts with very minimal overhead and without re-execution of completed functional (model) evaluations.
+In all these cases, the AffineInvariantMCMC runs need to be restarted.
+Our codes allow for efficient restarts with very minimal overhead and without re-execution of completed functional (model) evaluations.
 
 For more information, check out our Julia module [ReusableFunctions](https://github.com/madsjulia/ReusableFunctions.jl).
 
