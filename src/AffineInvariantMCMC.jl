@@ -46,6 +46,9 @@ function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real
 		chain, llhoodvals = JLD2.load(filename, "chain", "llhoods")
 	end
 	x = copy(x0)
+	if numsamples_perwalker < 2
+		numsamples_perwalker = 2
+	end
 	chain = Array{Float64}(undef, size(x0, 1), numwalkers, div(numsamples_perwalker, thinning))
 	lastllhoodvals = RobustPmap.rpmap(llhood, map(i->x[:, i], 1:size(x, 2)))
 	llhoodvals = Array{Float64}(undef, numwalkers, div(numsamples_perwalker, thinning))
