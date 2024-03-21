@@ -41,14 +41,21 @@ Reference:
 
 Goodman & Weare, "Ensemble samplers with affine invariance", Communications in Applied Mathematics and Computational Science, DOI: 10.2140/camcos.2010.5.65, 2010.
 """
-function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real}, numsamples_perwalker::Integer, thinning::Integer, a::Number=2.; filename::AbstractString="", load::Bool=true, save::Bool=true, rng::Random.AbstractRNG=Random.GLOBAL_RNG)
-	if filename != "" && isfile(filename) && load
-		chain, llhoodvals = JLD2.load(filename, "chain", "llhoods")
-	end
-	x = copy(x0)
+function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real}, numsamples_perwalker::Integer, thinning::Integer=numwalkers, a::Number=2.; filename::AbstractString="", load::Bool=true, save::Bool=true, rng::Random.AbstractRNG=Random.GLOBAL_RNG)
 	if numsamples_perwalker < 2
 		numsamples_perwalker = 2
 	end
+	if filename != "" && isfile(filename) && load
+		chain, llhoodvals = JLD2.load(filename, "chain", "llhoods")
+		if size(chain, 1) == size(x0, 1) && size(chain, 2) == numwalkers && size(chain, 3) == div(numsamples_perwalker, thinning)
+			@info("AffineInvariantMCMC chain loaded from $(filename)!")
+			return chain, llhoodvals
+		else
+			@warn("AffineInvariantMCMC chain in $(filename) is not compatible with the input parameters!")
+			@info("Re-running AffineInvariantMCMC ...")
+		end
+	end
+	x = copy(x0)
 	chain = Array{Float64}(undef, size(x0, 1), numwalkers, div(numsamples_perwalker, thinning))
 	lastllhoodvals = RobustPmap.rpmap(llhood, map(i->x[:, i], 1:size(x, 2)))
 	llhoodvals = Array{Float64}(undef, numwalkers, div(numsamples_perwalker, thinning))
