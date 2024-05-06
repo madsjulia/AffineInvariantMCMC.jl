@@ -46,12 +46,12 @@ burnin = 100
 	return flatchain, means, stds
 end
 
-@Test.testset "Emcee" begin
+Test.@testset "Emcee" begin
 	for _ in 1:10
 		flatchain, means, stds = testemcee()
 		for i = 1:numdims
-			@Test.test isapprox(Statistics.mean(flatchain[i, :]), means[i], atol=(0.5 * stds[i]))
-			@Test.test isapprox(Statistics.std(flatchain[i, :]), stds[i], atol=(5 * stds[i]))
+			Test.@test isapprox(Statistics.mean(flatchain[i, :]), means[i], atol=(0.5 * stds[i]))
+			Test.@test isapprox(Statistics.std(flatchain[i, :]), stds[i], atol=(5 * stds[i]))
 		end
 	end
 end
