@@ -1,6 +1,6 @@
 name = "AffineInvariantMCMC"
 uuid = "a0f608ac-68d0-5108-ad9a-0cdca73324f3"
-version = "1.2.4"
+version = "1.2.5"
 
 [deps]
 JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
