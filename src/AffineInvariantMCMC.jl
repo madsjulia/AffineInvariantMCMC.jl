@@ -41,7 +41,7 @@ Reference:
 
 Goodman & Weare, "Ensemble samplers with affine invariance", Communications in Applied Mathematics and Computational Science, DOI: 10.2140/camcos.2010.5.65, 2010.
 """
-function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real}, numsamples_perwalker::Integer, thinning::Integer=numwalkers, a::Number=2.; filename::AbstractString="", load::Bool=true, save::Bool=true, rng::Random.AbstractRNG=Random.GLOBAL_RNG)
+function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real}, numsamples_perwalker::Integer, thinning::Integer=numwalkers, a::Number=2.; filename::AbstractString="", load::Bool=true, save::Bool=true, rng::Random.AbstractRNG=Random.GLOBAL_RNG, type::DataType=Float64, checkoutputs::Bool=true)
 	if numsamples_perwalker < 2
 		numsamples_perwalker = 2
 	end
@@ -57,7 +57,7 @@ function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real
 	end
 	x = copy(x0)
 	chain = Array{Float64}(undef, size(x0, 1), numwalkers, div(numsamples_perwalker, thinning))
-	lastllhoodvals = RobustPmap.rpmap(llhood, map(i->x[:, i], 1:size(x, 2)))
+	lastllhoodvals = RobustPmap.rpmap(llhood, permutedims(map(i->x[:, i], 1:size(x, 2))); t=type, checkoutputs=checkoutputs)
 	llhoodvals = Array{Float64}(undef, numwalkers, div(numsamples_perwalker, thinning))
 	llhoodvals[:, 1] = lastllhoodvals
 	chain[:, :, 1] = x0
@@ -69,7 +69,7 @@ function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real
 			active, inactive = ensembles
 			zs = map(u->((a - 1) * u + 1)^2 / a, rand(rng, length(active)))
 			proposals = map(i->zs[i] * x[:, active[i]] + (1 - zs[i]) * x[:, rand(rng, inactive)], 1:length(active))
-			newllhoods = RobustPmap.rpmap(llhood, proposals)
+			newllhoods = RobustPmap.rpmap(llhood, proposals; t=type, checkoutputs=checkoutputs)
 			for (j, walkernum) in enumerate(active)
 				z = zs[j]
 				newllhood = newllhoods[j]
