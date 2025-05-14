@@ -6,19 +6,23 @@ Module: AffineInvariantMCMC
 """
 module AffineInvariantMCMC
 
-import RobustPmap
 import ProgressMeter
 import Random
 
 const emceedir = splitdir(splitdir(pathof(AffineInvariantMCMC))[1])[1]
 
-"Test AffineInvariantMCMC"
+include("likelihood.jl")
+
+"""
+Test AffineInvariantMCMC
+"""
 function test()
 	include(joinpath(emceedir, "test", "runtests.jl"))
 end
 
 """
-Bayesian sampling using Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler (aka Emcee)
+Bayesian sampling using Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler (aka Emcee).
+The default implementation uses `RobustPmap` to evaluate the log-likelihood function in parallel.
 
 ```
 AffineInvariantMCMC.sample(llhood, numwalkers=10, numsamples_perwalker=100, thinning=1)
@@ -30,7 +34,6 @@ Arguments:
 - `numwalkers` : number of walkers
 - `x0` : normalized initial parameters (matrix of size (length(params), numwalkers))
 - `thinning` : removal of any `thinning` realization
-- `a` :
 
 Returns:
 
@@ -41,7 +44,34 @@ Reference:
 
 Goodman & Weare, "Ensemble samplers with affine invariance", Communications in Applied Mathematics and Computational Science, DOI: 10.2140/camcos.2010.5.65, 2010.
 """
-function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real}, numsamples_perwalker::Integer, thinning::Integer=numwalkers, a::Number=2.; filename::AbstractString="", load::Bool=true, save::Bool=true, rng::Random.AbstractRNG=Random.GLOBAL_RNG, type::DataType=Float64, checkoutputs::Bool=true)
+function sample(
+	llhood::Function,
+	numwalkers::Integer,
+	x0::AbstractMatrix{<:Real},
+	numsamples_perwalker::Integer,
+	thinning::Integer=numwalkers,
+	a::Number=2.;
+	filename::AbstractString="",
+	load::Bool=true,
+	save::Bool=true,
+	rng::Random.AbstractRNG=Random.GLOBAL_RNG,
+	type::DataType=Float64,
+	checkoutputs::Bool=true,
+)
+	return sample(LogLikelihoodFunction(llhood, RobustPmapExecKernel(; type, checkoutputs)), numwalkers, x0, numsamples_perwalker, thinning, a; filename, load, save, rng)
+end
+function sample(
+	llhood::LogLikelihoodFunction,
+	numwalkers::Integer,
+	x0::AbstractMatrix{<:Real},
+	numsamples_perwalker::Integer,
+	thinning::Integer=numwalkers,
+	a::Number=2.;
+	filename::AbstractString="",
+	load::Bool=true,
+	save::Bool=true,
+	rng::Random.AbstractRNG=Random.GLOBAL_RNG,
+)
 	if numsamples_perwalker < 2
 		numsamples_perwalker = 2
 	end
@@ -57,7 +87,7 @@ function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real
 	end
 	x = copy(x0)
 	chain = Array{Float64}(undef, size(x0, 1), numwalkers, div(numsamples_perwalker, thinning))
-	lastllhoodvals = RobustPmap.rpmap(llhood, permutedims(map(i->x[:, i], 1:size(x, 2))); t=type, checkoutputs=checkoutputs)
+	lastllhoodvals = llhood(permutedims(map(i->x[:, i], 1:size(x, 2))))
 	llhoodvals = Array{Float64}(undef, numwalkers, div(numsamples_perwalker, thinning))
 	llhoodvals[:, 1] = lastllhoodvals
 	chain[:, :, 1] = x0
@@ -69,7 +99,7 @@ function sample(llhood::Function, numwalkers::Integer, x0::AbstractMatrix{<:Real
 			active, inactive = ensembles
 			zs = map(u->((a - 1) * u + 1)^2 / a, rand(rng, length(active)))
 			proposals = map(i->zs[i] * x[:, active[i]] + (1 - zs[i]) * x[:, rand(rng, inactive)], 1:length(active))
-			newllhoods = RobustPmap.rpmap(llhood, proposals; t=type, checkoutputs=checkoutputs)
+			newllhoods = llhood(proposals)
 			for (j, walkernum) in enumerate(active)
 				z = zs[j]
 				newllhood = newllhoods[j]

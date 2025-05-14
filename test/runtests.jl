@@ -46,6 +46,22 @@ burnin = 100
 	return flatchain, means, stds
 end
 
+Test.@testset "Serial execution" begin
+	stds = exp.(5 .* randn(numdims))
+	means = 1 .+ 5 .* rand(numdims)
+	llhood = x->begin
+		retval = 0.
+		for i = eachindex(x)
+			retval -= .5 * ((x[i] - means[i]) / stds[i]) ^ 2
+		end
+		return retval
+	end
+	x0 = rand(numdims, numwalkers) .* 10 .- 5
+	llhood = AffineInvariantMCMC.LogLikelihoodFunction(llhood, AffineInvariantMCMC.SerialExecKernel())
+	chain, llhoodvals = AffineInvariantMCMC.sample(llhood, numwalkers, x0, burnin, 1)
+	Test.@test all(isfinite.(llhoodvals))
+end
+
 Test.@testset "Emcee" begin
 	for _ in 1:10
 		flatchain, means, stds = testemcee()
