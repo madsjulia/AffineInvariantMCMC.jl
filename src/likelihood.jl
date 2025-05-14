@@ -10,14 +10,14 @@ Base.@kwdef struct RobustPmapExecKernel <: ExecutionKernel
     checkoutputs::Bool
 end
 
-(exec::RobustPmapExecKernel)(f::Function, xs::AbstractVector) = RobustPmap.rpmap(f, xs; t=exec.type, checkoutputs=exec.checkoutputs)
+(exec::RobustPmapExecKernel)(f::Function, xs::AbstractArray) = RobustPmap.rpmap(f, xs; t=exec.type, checkoutputs=exec.checkoutputs)
 
 """
 Simple execution kernel which evaluates all samples serially. Only intended for testing.
 """
 struct SerialExecKernel <: ExecutionKernel end
 
-(exec::SerialExecKernel)(f::Function, xs::AbstractVector) = map(f, xs)
+(exec::SerialExecKernel)(f::Function, xs::AbstractArray) = map(f, xs)
 
 """
     LogLikelihoodFunction{funcType,execType<:ExecutionKernel}
@@ -30,4 +30,4 @@ struct LogLikelihoodFunction{funcType,execType<:ExecutionKernel}
     exec::execType
 end
 
-(lik::LogLikelihoodFunction)(xs::Vector) = lik.exec(lik.f, xs)
+(lik::LogLikelihoodFunction)(xs::AbstractArray) = lik.exec(lik.f, xs)

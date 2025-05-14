@@ -54,10 +54,11 @@ function sample(
 	filename::AbstractString="",
 	load::Bool=true,
 	save::Bool=true,
+	rng::Random.AbstractRNG=Random.GLOBAL_RNG,
 	type::DataType=Float64,
 	checkoutputs::Bool=true,
 )
-	return sample(LogLikelihoodFunction(llhood, RobustPmapExecKernel(; type, checkoutputs)), numwalkers, x0, numsamples, thinning, a; filename, load, save, rng)
+	return sample(LogLikelihoodFunction(llhood, RobustPmapExecKernel(; type, checkoutputs)), numwalkers, x0, numsamples_perwalker, thinning, a; filename, load, save, rng)
 end
 function sample(
 	llhood::LogLikelihoodFunction,
