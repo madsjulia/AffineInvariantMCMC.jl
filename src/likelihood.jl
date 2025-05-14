@@ -27,7 +27,7 @@ is evaluated over a batch of samples.
 """
 struct LogLikelihoodFunction{funcType,execType<:ExecutionKernel}
     f::funcType
-    exec::ExecutionKernel
+    exec::execType
 end
 
 (lik::LogLikelihoodFunction)(xs::Vector) = lik.exec(lik.f, xs)
