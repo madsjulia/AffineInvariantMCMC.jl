@@ -13,13 +13,16 @@ const emceedir = splitdir(splitdir(pathof(AffineInvariantMCMC))[1])[1]
 
 include("likelihood.jl")
 
-"Test AffineInvariantMCMC"
+"""
+Test AffineInvariantMCMC
+"""
 function test()
 	include(joinpath(emceedir, "test", "runtests.jl"))
 end
 
 """
-Bayesian sampling using Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler (aka Emcee)
+Bayesian sampling using Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler (aka Emcee).
+The default implementation uses `RobustPmap` to evaluate the log-likelihood function in parallel.
 
 ```
 AffineInvariantMCMC.sample(llhood, numwalkers=10, numsamples_perwalker=100, thinning=1)
@@ -50,11 +53,11 @@ function sample(
 	a::Number=2.;
 	filename::AbstractString="",
 	load::Bool=true,
-	save::Bool=true;
+	save::Bool=true,
 	type::DataType=Float64,
-	checkoutputs::Bool=true
+	checkoutputs::Bool=true,
 )
-	return sample(LogLikelihoodFunction(llhood, RobustPmapExecKernel(; pmap_kwargs...)), numwalkers, x0, numsamples, thinning, a; filename, load, save, rng)
+	return sample(LogLikelihoodFunction(llhood, RobustPmapExecKernel(; type, checkoutputs)), numwalkers, x0, numsamples, thinning, a; filename, load, save, rng)
 end
 function sample(
 	llhood::LogLikelihoodFunction,
@@ -66,7 +69,7 @@ function sample(
 	filename::AbstractString="",
 	load::Bool=true,
 	save::Bool=true,
-	rng::Random.AbstractRNG=Random.GLOBAL_RNG
+	rng::Random.AbstractRNG=Random.GLOBAL_RNG,
 )
 	if numsamples_perwalker < 2
 		numsamples_perwalker = 2
