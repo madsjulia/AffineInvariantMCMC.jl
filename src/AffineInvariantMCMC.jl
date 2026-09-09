@@ -9,6 +9,7 @@ module AffineInvariantMCMC
 import RobustPmap
 import ProgressMeter
 import Random
+import JLD2
 
 const emceedir = splitdir(splitdir(pathof(AffineInvariantMCMC))[1])[1]
 
